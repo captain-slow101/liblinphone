@@ -228,7 +228,11 @@ int IceService::gatherIceCandidates () {
 		string server = linphone_nat_policy_get_stun_server(natPolicy);
 		lInfo() << "ICE: gathering candidates from [" << server << "] using " << (linphone_nat_policy_turn_enabled(natPolicy) ? "TURN" : "STUN");
 		// Gather local srflx candidates.
-		ice_session_enable_turn(mIceSession, linphone_nat_policy_turn_enabled(natPolicy));
+		if (linphone_nat_policy_turn_enabled(natPolicy)) {
+			ice_session_enable_turn(mIceSession, TRUE);
+			ice_session_set_turn_transport(mIceSession, linphone_nat_policy_get_turn_transport(natPolicy));
+			ice_session_set_turn_root_certificate(mIceSession, linphone_nat_policy_get_turn_root_certificate(natPolicy));
+		}
 		ice_session_set_stun_auth_requested_cb(mIceSession, MediaSessionPrivate::stunAuthRequestedCb, &getMediaSessionPrivate());
 		err = ice_session_gather_candidates(mIceSession, ai->ai_addr, (socklen_t)ai->ai_addrlen) ? 1 : 0;
 	} else {

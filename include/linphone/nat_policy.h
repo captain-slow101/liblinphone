@@ -177,6 +177,39 @@ LINPHONE_PUBLIC void linphone_nat_policy_resolve_stun_server(LinphoneNatPolicy *
 LINPHONE_PUBLIC const struct addrinfo * linphone_nat_policy_get_stun_server_addrinfo(LinphoneNatPolicy *policy);
 
 /**
+ * Get the TURN transport to use with this NAT policy.
+ * Used when TURN is enabled.
+ * @param[in] policy #LinphoneNatPolicy object
+ * @return The TURN transport used by this NAT policy.
+ */
+LINPHONE_PUBLIC const char * linphone_nat_policy_get_turn_transport(const LinphoneNatPolicy *policy);
+
+/**
+ * Set the TURN transport to use with this NAT policy.
+ * Used when TURN is enabled.
+ * The transport can be either UDP, TCP or TLS.
+ * @param[in] policy #LinphoneNatPolicy object
+ * @param[in] turn_transport The TURN transport to use with this NAT policy.
+ */
+LINPHONE_PUBLIC void linphone_nat_policy_set_turn_transport(LinphoneNatPolicy *policy, const char *turn_transport);
+
+/**
+ * Get the TURN root cetificate path to use with this NAT policy.
+ * Used when TURN is enabled and transport is set to TLS.
+ * @param[in] policy #LinphoneNatPolicy object
+ * @return The TURN root certificate path used by this NAT policy.
+ */
+LINPHONE_PUBLIC const char * linphone_nat_policy_get_turn_root_certificate(const LinphoneNatPolicy *policy);
+
+/**
+ * Set the TURN root cetificate path to use with this NAT policy.
+ * Used when TURN is enabled and transport is set to TLS.
+ * @param[in] policy #LinphoneNatPolicy object
+ * @param[in] turn_root_certificate The TURN root cetificate path to use with this NAT policy.
+ */
+LINPHONE_PUBLIC void linphone_nat_policy_set_turn_root_certificate(LinphoneNatPolicy *policy, const char *turn_root_certificate);
+
+/**
  * Returns the #LinphoneCore object managing this nat policy, if any.
  * @param[in] fr #LinphoneNatPolicy object
  */
